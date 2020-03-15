@@ -1,11 +1,12 @@
 package common
 
 import (
-	"bufio"
+	"encoding/csv"
 	"fmt"
 	"log"
 	"os"
 	"runtime"
+	"strconv"
 	"strings"
 )
 
@@ -14,8 +15,8 @@ func QuizPath() string {
 	return strings.TrimSuffix(path, "common/utils.go")
 }
 
-func ReadQuestions(filePath string) []Problem {
-	questions := []Problem{}
+func ReadProblems(filePath string) []Problem {
+	problems := []Problem{}
 
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -23,25 +24,31 @@ func ReadQuestions(filePath string) []Problem {
 	}
 	defer file.Close()
 
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		var question Problem
-		question = question.Parse(line)
-		questions = append(questions, question)
-	}
+	// create csv reader
+	reader := csv.NewReader(file)
+	reader.Comma = '\t'
+	reader.TrimLeadingSpace = true
 
-	if err := scanner.Err(); err != nil {
+	parsedLines, err := reader.ReadAll()
+	if err != nil {
 		log.Fatal(err)
 	}
+	for _, parsedLine := range parsedLines {
+		answer, _ := strconv.Atoi(parsedLine[1])
+		parsedProblem := Problem{
+			Question: parsedLine[0],
+			Answer:   answer,
+		}
+		problems = append(problems, parsedProblem)
+	}
 
-	return questions
+	return problems
 }
 
-func ShowQuestions(questions []Problem) {
-	fmt.Println("Questions are:-")
-	for _, question := range questions {
+func ShowProblems(problems []Problem) {
+	fmt.Println("Problems are:-")
+	for _, question := range problems {
 		fmt.Println(question.ToString(false))
 	}
-	//fmt.Printf("%v", questions)
+	//fmt.Printf("%v", problems)
 }

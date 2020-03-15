@@ -2,34 +2,28 @@ package common
 
 import (
 	"fmt"
-	"regexp"
 	"strconv"
 )
 
 type Problem struct {
-	Question int
-	Op2      int
+	Question string
 	Answer   int
 }
 
-func (q Problem) Parse(str string) Problem {
-	digitRegex := regexp.MustCompile("\\d+")
-	numbers := digitRegex.FindAllString(str, -1)
-	Op1, _ := strconv.Atoi(numbers[0])
-	Op2, _ := strconv.Atoi(numbers[1])
-	Ans, _ := strconv.Atoi(numbers[2])
+func (q Problem) Parse(parsedLine []string) Problem {
+	Question := parsedLine[0]
+	Answer, _ := strconv.Atoi(parsedLine[1])
 	return Problem{
-		Question: Op1,
-		Op2:      Op2,
-		Answer:   Ans,
+		Question: Question,
+		Answer:   Answer,
 	}
 }
 
 func (q Problem) ToString(maskAnswer bool) string {
 	if maskAnswer {
-		return fmt.Sprintf("%d + %d = ?", q.Question, q.Op2)
+		return fmt.Sprintf("%s = ?", q.Question)
 	} else {
-		return fmt.Sprintf("%d + %d = %d", q.Question, q.Op2, q.Answer)
+		return fmt.Sprintf("%s = %d", q.Question, q.Answer)
 	}
 }
 
@@ -69,6 +63,6 @@ func (s *Score) Update(question Problem, response Response) {
 	//fmt.Println("after update, score was:-\n" + s.ToString())
 }
 
-func ShowQuestion(q Problem) {
+func ShowProblem(q Problem) {
 	fmt.Println(q.ToString(true))
 }

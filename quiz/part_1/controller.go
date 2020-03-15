@@ -9,15 +9,15 @@ import (
 
 func Drive() {
 	// no of questions
-	fmt.Print("No of questions = ")
-	var numQuestions int
-	fmt.Scan(&numQuestions)
+	fmt.Print("No of problems = ")
+	var numProblems int
+	fmt.Scan(&numProblems)
 	// accept answers
-	for idx := 0; idx < numQuestions; idx++ {
+	for idx := 0; idx < numProblems; idx++ {
 		// get question
-		var question common.Problem = common.GetQuestion(idx)
+		var question common.Problem = common.GetProblem(idx)
 		// show question
-		common.ShowQuestion(question)
+		common.ShowProblem(question)
 		// start timer
 		nowTime := time.Now()
 		// wait for and read input

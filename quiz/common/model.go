@@ -2,19 +2,19 @@ package common
 
 import "fmt"
 
-var questions []Problem = ReadQuestions(QuizPath() + "questions.txt")
+var problems []Problem = ReadProblems(QuizPath() + "questions.txt")
 var score Score = Score{
 	CorrectQNo:   []int{},
 	IncorrectQNo: []int{},
 	QTime:        []float32{},
 }
 
-func GetQuestion(qNo int) Problem {
-	return questions[qNo]
+func GetProblem(qNo int) Problem {
+	return problems[qNo]
 }
 
 func UpdateScore(response Response) {
-	score.Update(GetQuestion(response.QNo), response)
+	score.Update(GetProblem(response.QNo), response)
 }
 
 func ShowScore() {
