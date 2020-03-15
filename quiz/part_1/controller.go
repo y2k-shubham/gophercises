@@ -15,7 +15,7 @@ func Drive() {
 	// accept answers
 	for idx := 0; idx < numQuestions; idx++ {
 		// get question
-		var question common.Question = common.GetQuestion(idx)
+		var question common.Problem = common.GetQuestion(idx)
 		// show question
 		common.ShowQuestion(question)
 		// start timer

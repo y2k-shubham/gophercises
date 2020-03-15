@@ -2,14 +2,14 @@ package common
 
 import "fmt"
 
-var questions []Question = ReadQuestions(QuizPath() + "questions.txt")
+var questions []Problem = ReadQuestions(QuizPath() + "questions.txt")
 var score Score = Score{
 	CorrectQNo:   []int{},
 	IncorrectQNo: []int{},
 	QTime:        []float32{},
 }
 
-func GetQuestion(qNo int) Question {
+func GetQuestion(qNo int) Problem {
 	return questions[qNo]
 }
 

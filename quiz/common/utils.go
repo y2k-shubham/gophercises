@@ -14,8 +14,8 @@ func QuizPath() string {
 	return strings.TrimSuffix(path, "common/utils.go")
 }
 
-func ReadQuestions(filePath string) []Question {
-	questions := []Question{}
+func ReadQuestions(filePath string) []Problem {
+	questions := []Problem{}
 
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -26,7 +26,7 @@ func ReadQuestions(filePath string) []Question {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-		var question Question
+		var question Problem
 		question = question.Parse(line)
 		questions = append(questions, question)
 	}
@@ -38,7 +38,7 @@ func ReadQuestions(filePath string) []Question {
 	return questions
 }
 
-func ShowQuestions(questions []Question) {
+func ShowQuestions(questions []Problem) {
 	fmt.Println("Questions are:-")
 	for _, question := range questions {
 		fmt.Println(question.ToString(false))
