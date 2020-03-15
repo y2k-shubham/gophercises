@@ -4,10 +4,18 @@ import (
 	"fmt"
 	"github.com/y2k-shubham/gophercises-y2k/quiz/common"
 	_ "github.com/y2k-shubham/gophercises-y2k/quiz/common"
+	"strings"
 	"time"
 )
 
 func Drive() {
+	// shuffle questions
+	fmt.Print("Shuffle problems? (Y/N) ")
+	var shuffleResponse string
+	fmt.Scan(&shuffleResponse)
+	if strings.ToLower(strings.TrimSpace(shuffleResponse)) == "y" {
+		common.ShuffleProblems()
+	}
 	// no of questions
 	fmt.Print("No of problems = ")
 	var numProblems int
