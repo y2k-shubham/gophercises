@@ -1,31 +1,36 @@
-package part_1
+package common
 
 import (
 	"fmt"
-	"github.com/y2k-shubham/gophercises-y2k/quiz/common"
-	_ "github.com/y2k-shubham/gophercises-y2k/quiz/common"
 	"strings"
 	"time"
 )
 
-func Drive() {
+func ReadCommonInputs() (bool, int) {
 	// shuffle questions
 	fmt.Print("Shuffle problems? (Y/N) ")
 	var shuffleResponse string
 	fmt.Scan(&shuffleResponse)
-	if strings.ToLower(strings.TrimSpace(shuffleResponse)) == "y" {
-		common.ShuffleProblems()
-	}
+	var shouldShuffle bool = strings.ToLower(strings.TrimSpace(shuffleResponse)) == "y"
+
 	// no of questions
 	fmt.Print("No of problems = ")
 	var numProblems int
 	fmt.Scan(&numProblems)
+
+	return shouldShuffle, numProblems
+}
+
+func RunQuiz(numProblems int) {
+	// show score
+	defer ShowScore()
+
 	// accept answers
 	for idx := 0; idx < numProblems; idx++ {
 		// get question
-		var question common.Problem = common.GetProblem(idx)
+		var question Problem = GetProblem(idx)
 		// show question
-		common.ShowProblem(question)
+		ShowProblem(question)
 		// start timer
 		nowTime := time.Now()
 		// wait for and read input
@@ -34,14 +39,12 @@ func Drive() {
 		// stop timer
 		duration := time.Since(nowTime).Seconds()
 		// parse response
-		response := common.Response{
+		response := Response{
 			QNo:  idx,
 			Ans:  ans,
 			Time: float32(duration),
 		}
 		// update score
-		common.UpdateScore(response)
+		UpdateScore(response)
 	}
-	// show score
-	common.ShowScore()
 }
