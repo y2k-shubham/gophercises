@@ -2,6 +2,7 @@ package common
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -27,6 +28,7 @@ func RunQuiz(numProblems int) {
 		// get question
 		var question Problem = GetProblem(idx)
 		// show question
+		fmt.Print("#" + strconv.Itoa(idx) + " ")
 		ShowProblem(question)
 		// start timer
 		nowTime := time.Now()
