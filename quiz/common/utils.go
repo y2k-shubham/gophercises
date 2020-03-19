@@ -15,8 +15,7 @@ func QuizPath() string {
 }
 
 func ReadProblems(filePath string) []Problem {
-	problems := []Problem{}
-
+	// open file
 	file, err := os.Open(filePath)
 	if err != nil {
 		log.Fatal(err)
@@ -28,13 +27,16 @@ func ReadProblems(filePath string) []Problem {
 	reader.Comma = '\t'
 	reader.TrimLeadingSpace = true
 
+	// read lines
 	parsedLines, err := reader.ReadAll()
 	if err != nil {
 		log.Fatal(err)
 	}
-	for _, parsedLine := range parsedLines {
-		parsedProblem := Parse(parsedLine)
-		problems = append(problems, parsedProblem)
+
+	// parse lines
+	problems := make([]Problem, len(parsedLines))
+	for i, parsedLine := range parsedLines {
+		problems[i] = Parse(parsedLine)
 	}
 
 	return problems
