@@ -30,5 +30,6 @@ func UpdateScore(response Response) {
 }
 
 func ShowScore() {
+	fmt.Println()
 	fmt.Println(score.ToString())
 }

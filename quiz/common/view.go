@@ -10,7 +10,7 @@ type Problem struct {
 	Answer   int
 }
 
-func (q Problem) Parse(parsedLine []string) Problem {
+func Parse(parsedLine []string) Problem {
 	Question := parsedLine[0]
 	Answer, _ := strconv.Atoi(parsedLine[1])
 	return Problem{
@@ -64,5 +64,5 @@ func (s *Score) Update(question Problem, response Response) {
 }
 
 func ShowProblem(q Problem) {
-	fmt.Println(q.ToString(true))
+	fmt.Print(q.ToString(true) + "\t")
 }
