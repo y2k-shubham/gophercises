@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"runtime"
-	"strconv"
 	"strings"
 )
 
@@ -34,11 +33,7 @@ func ReadProblems(filePath string) []Problem {
 		log.Fatal(err)
 	}
 	for _, parsedLine := range parsedLines {
-		answer, _ := strconv.Atoi(parsedLine[1])
-		parsedProblem := Problem{
-			Question: parsedLine[0],
-			Answer:   answer,
-		}
+		parsedProblem := Parse(parsedLine)
 		problems = append(problems, parsedProblem)
 	}
 

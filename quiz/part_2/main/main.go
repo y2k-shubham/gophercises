@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
+	// show score
+	defer common.ShowScore()
+
 	shouldShuffleProblems, numProblems := common.ReadCommonInputs()
 	if shouldShuffleProblems {
 		common.ShuffleProblems()

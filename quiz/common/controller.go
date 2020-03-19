@@ -22,9 +22,6 @@ func ReadCommonInputs() (bool, int) {
 }
 
 func RunQuiz(numProblems int) {
-	// show score
-	defer ShowScore()
-
 	// accept answers
 	for idx := 0; idx < numProblems; idx++ {
 		// get question
