@@ -12,6 +12,7 @@ func main() {
 	mapHandler := BuildDefaultHandler()
 
 	var pathRulesString string
+	// go run urlshort/main/main.go -yaml-file my-rules.yml
 	yamlFileName := flag.String("yaml-file", "", "YAML input file containing path rules")
 
 	flag.Parse()
