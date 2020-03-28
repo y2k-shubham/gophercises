@@ -13,23 +13,32 @@ func main() {
 
 	var pathRulesString string
 	// go run urlshort/main/main.go -yaml-file my-rules.yml
-	yamlFileName := flag.String("yaml-file", "", "YAML input file containing path rules")
+	yamlFileName := flag.String("yaml-file", "", "YAML file containing path rules")
+	// go run urlshort/main/main.go -json-file my-rules.json
+	jsonFileName := flag.String("json-file", "", "JSON file containing path rules")
 
 	flag.Parse()
-	if *yamlFileName != "" {
-		pathRulesString = urlshort.ReadYamlFile(*yamlFileName)
-	} else {
-		pathRulesString = GetDefaultYamlRules()
-	}
 
-	yamlHandler, err := urlshort.YAMLHandler([]byte(pathRulesString), mapHandler)
+	var err error
+	var usedHandler http.HandlerFunc
+	if *jsonFileName != "" {
+		pathRulesString = urlshort.ReadFile(*jsonFileName)
+		usedHandler, err = urlshort.JSONHandler([]byte(pathRulesString), mapHandler)
+	} else {
+		if *yamlFileName != "" {
+			pathRulesString = urlshort.ReadFile(*yamlFileName)
+		} else {
+			pathRulesString = GetDefaultYamlRules()
+		}
+		usedHandler, err = urlshort.YAMLHandler([]byte(pathRulesString), mapHandler)
+	}
 	if err != nil {
 		panic(err)
 	}
 
 	fmt.Println("Starting the server on :8080")
 	//http.ListenAndServe(":8080", mapHandler)
-	http.ListenAndServe(":8080", yamlHandler)
+	http.ListenAndServe(":8080", usedHandler)
 }
 
 func GetDefaultYamlRules() string {

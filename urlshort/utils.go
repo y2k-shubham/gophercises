@@ -11,7 +11,7 @@ func InputFilesPath() string {
 	return strings.TrimSuffix(path, "utils.go") + "input_files/"
 }
 
-func ReadYamlFile(fileName string) string {
+func ReadFile(fileName string) string {
 	filePath := InputFilesPath() + fileName
 	byteArr, err := ioutil.ReadFile(filePath)
 	if err != nil {

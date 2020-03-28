@@ -1,4 +1,4 @@
-- path: /urlshort-godoc-2
+- path: /urlshort-godoc-yaml
   url: https://godoc.org/github.com/gophercises/urlshort
-- path: /yaml-godoc-2
+- path: /yaml-godoc-yaml
   url: https://godoc.org/gopkg.in/yaml.v2
