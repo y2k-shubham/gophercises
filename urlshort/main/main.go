@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 
@@ -25,7 +26,18 @@ func main() {
 - path: /urlshort-final
   url: https://github.com/gophercises/urlshort/tree/solution
 `
-	yamlHandler, err := urlshort.YAMLHandler([]byte(yaml), mapHandler)
+
+	var pathRulesString string
+	yamlFileName := flag.String("yaml-file", "", "YAML input file containing path rules")
+
+	flag.Parse()
+	if *yamlFileName != "" {
+		pathRulesString = urlshort.ReadYamlFile(*yamlFileName)
+	} else {
+		pathRulesString = yaml
+	}
+
+	yamlHandler, err := urlshort.YAMLHandler([]byte(pathRulesString), mapHandler)
 	if err != nil {
 		panic(err)
 	}
